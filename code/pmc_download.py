@@ -3,7 +3,7 @@
 # ==============================================================================
 
 # load modules
-import requests, json
+import requests, json, sys
 from pathlib import Path
 from requests.exceptions import HTTPError
 from requests.models import Response
@@ -41,6 +41,13 @@ def get_nxml(id, params):
         print(f'HTTP error occurred: {http_err}')  # Python 3.6
     except Exception as err:
         print(f'Other error occurred: {err}')  # Python 3.6
+
+# make calls for list of ids
+xml_list = []
+for i in id_list: #id list comes from biopython
+    xml_file = get_nxml(i, params=params)
+    xml_list.append(xml_file)
+    sys.sleep(.334)
 
 # test it out
 test = get_nxml(id="7772474", params=params)
